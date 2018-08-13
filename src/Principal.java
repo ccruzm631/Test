@@ -13,9 +13,9 @@ public class Principal {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Entidad entidad = new Entidad("Mexico");
+		//Entidad entidad = new Entidad("Mexico");
 		
-		System.out.println("Hello World!"+ entidad.getNombre());
+		//System.out.println("Hello World!"+ entidad.getNombre());
 	}
 
 }
