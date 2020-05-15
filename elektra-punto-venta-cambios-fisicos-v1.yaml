@@ -1,0 +1,3704 @@
+swagger: "2.0"
+info:
+  description: API para el módulo de Cambios fìsicos
+  version: "0.0.1"
+  title: API de Cambios Fìsicos
+host: dev-api.bancoazteca.com.mx:8080
+basePath: /elektra/punto-venta/cambios-fisicos/v1
+
+schemes:
+  - https
+
+produces:
+  - application/json
+  
+securityDefinitions:
+  Bearer:
+    description: >
+      Para acceder a la API se debe pasar un token válido en todas las consultas.
+      La siguiente sintaxis se debe utilizar en el encabezado 'Authorization' :
+        Bearer: 2zzLJmBAtTNIU8nF8e8XbmDvaNGs
+    type: apiKey
+    name: Authorization
+    in: header
+    
+security:
+  - Bearer: []
+
+
+paths:
+  /catalogo-productos:
+    get:
+      tags:
+        - Registro de cambios Fìsicos
+      summary: Obtiene productos para el cambio
+      description: Obtiene ùnicamente los productos que pertenezcan a la clasificaciòn del producto devuelto
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+        - name: x-numeroTienda
+          in: header
+          description: Número de la tienda donde se registra el pedido
+          required: true
+          type: integer
+          format: int32
+          default: 4624
+        - name: x-numeroPagina
+          in: header
+          description: Nùmero de pagina a mostrar en pantalla
+          required: true
+          type: integer
+          format: int32
+          default: 1
+        - name: x-totalElementos
+          in: header
+          description: Total de elementos a mostrar en pantalla
+          required: true
+          type: integer
+          format: int32
+          default: 1
+          
+        - name: codigoProducto
+          in: query
+          description: Código del producto devuelto en el cambio fìsico
+          required: true
+          type: integer
+          format: int32
+          default: 10041
+
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ProductosCatalogo'
+          examples:
+            application/json: 
+              {
+                "sdf":{
+                  "nestedStates": true,
+                  "delta": true,
+                  "sdfType": "EVENT",
+                  "sendTopic": "sendTopic",
+                  "cbTopic": "cbTopic",
+                  "sdfVersion": "1.0",
+                  "prodId": "producerID",
+                  "callId": "",
+                  "mand": {
+                    "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                    "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                    "instance": "spl099nms5112b_1112",
+                    "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'",
+                    "eventName": "SMARTS-Heartbeat"
+                  },
+                  "opt": {
+                    "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                    "severity": "4",
+                    "isRoot": true,
+                    "resource": "SNMPTrap2",
+                    "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                    "impact": "0",
+                    "reportedSource": "UAT-TRAP02",
+                    "maintananceState": "false",
+                    "certainty": "100.0",
+                    "type": "MOMENTARY",
+                    "openedAt": "2019-03-29T13:40:05Z",
+                    "sourceStatus": "INACTIVE",
+                    "occurenceCount": "5865",
+                    "lastClearedAt": "2019-06-20T07:22:05Z",
+                    "acknowledgeState": "false",
+                    "category": "Message",
+                    "affectedCI": "server.fqdn",
+                    "lastOccurredAt": "2018-06-20T07:20:05Z",
+                    "firstOccurredAt": "2018-03-29T13:40:05Z",
+                    "owner": ""
+                  },
+                  "free": {
+                    "respuesta": {
+                      "mensaje": "Operación Exitosa",
+                      "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                      "resultado":{
+                        "numeroPagina": 1,
+                        "totalElementos": 1,
+                        "productos": [
+                            {
+                              "codigo": 10041,
+                              "descripcion": "Television 32 LG",
+                              "precio": 3500,
+                              "serie": "HSKD32K8874M"
+                            }
+                          ]
+
+                      }
+
+                    }
+                  }
+                }
+              }
+        '400':
+          description: Entrada Incorrecta
+          schema: 
+            $ref: "#/definitions/respuesta"
+          examples:
+            application/json:
+              {
+                "sdf": {
+                  "nestedStates": true,
+                  "delta": true,
+                  "sdfType": "EVENT",
+                  "sendTopic": "sendTopic",
+                  "cbTopic": "cbTopic",
+                  "sdfVersion": 1,
+                  "prodId": "producerID",
+                  "callId": "",
+                  "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                  },
+                  "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2020-03-18T15:58:46.960+0000",
+                      "impact": 1,
+                      "reportedSource": "SNMPTrap2",
+                      "maintananceState": false,
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2020-03-18T15:58:46.960+0000",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2020-03-18T15:58:46.960+0000",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2020-03-18T15:58:46.960+0000",
+                      "firstOccurredAt": "2020-03-18T15:58:46.960+0000",
+                      "owner": ""
+                  },
+                 "free": {
+                  "respuesta": {
+                    "codigo": "400.Elektra-Punto-Venta-Cambios-Fisicos.1000",
+                    "mensaje": "Error con los datos de entrada",
+                    "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                    "info": "https://baz-developer.bancoazteca.com.mx/errors#400.Elektra-Punto-Venta-Cambios-Fisicos.1000",
+                    "detalles": [
+                      "Datos de Solicitud Inválidos"
+                    ]
+                  }
+                }
+              }
+            }
+        '404':
+          description: No encontrado
+          schema: 
+            $ref: "#/definitions/respuestaNoEncontrado"
+          examples:
+            application/json: 
+              {
+                "sdf": {
+                  "nestedStates": true,
+                  "delta": true,
+                  "sdfType": "EVENT",
+                  "sendTopic": "sendTopic",
+                  "cbTopic": "cbTopic",
+                  "sdfVersion": 1,
+                  "prodId": "producerID",
+                  "callId": "",
+                  "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                  },
+                  "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2020-03-18T15:58:46.960+0000",
+                      "impact": 1,
+                      "reportedSource": "SNMPTrap2",
+                      "maintananceState": false,
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2020-03-18T15:58:46.960+0000",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2020-03-18T15:58:46.960+0000",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2020-03-18T15:58:46.960+0000",
+                      "firstOccurredAt": "2020-03-18T15:58:46.960+0000",
+                      "owner": ""
+                  },
+                  "free": {
+                  "respuesta": {
+                    "codigo": "404.Elektra-Punto-Venta-Cambios-Fisicos.1200",
+                    "mensaje": "No se encontró información",
+                    "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                    "info": "https://baz-developer.bancoazteca.com.mx/errors#404.Elektra-Punto-Venta-Cambios-Fisicos.1200",
+                    "detalles": [
+                      "No se encontró información"
+                    ]
+                  }
+                }
+              }
+            }
+        '500':
+          description: Operacion Inesperada
+          schema: 
+            $ref: "#/definitions/respErrorInterno"
+          examples:
+            application/json: 
+              {
+                "sdf": {
+                  "nestedStates": true,
+                  "delta": true,
+                  "sdfType": "EVENT",
+                  "sendTopic": "sendTopic",
+                  "cbTopic": "cbTopic",
+                  "sdfVersion": 1,
+                  "prodId": "producerID",
+                  "callId": "",
+                  "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                  },
+                  "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2020-03-18T15:58:46.960+0000",
+                      "impact": 1,
+                      "reportedSource": "SNMPTrap2",
+                      "maintananceState": false,
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2020-03-18T15:58:46.960+0000",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2020-03-18T15:58:46.960+0000",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2020-03-18T15:58:46.960+0000",
+                      "firstOccurredAt": "2020-03-18T15:58:46.960+0000",
+                      "owner": ""
+                  },
+                  "free": {
+                  "respuesta": {
+                    "codigo": "500.Elektra-Punto-Venta-Cambios-Fisicos.2000",
+                    "mensaje": "Ocurrio un error al procesar su peticiòn",
+                    "folio" : "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                    "info": "https://baz-developer.bancoazteca.com.mx/errors#500.Elektra-Punto-Venta-Cambios-Fisicos.2000",
+                    "detalles": [
+                      "Error interno"
+                    ]
+                  }
+                }
+              }
+            }
+      deprecated: false
+ 
+  /clientes:
+    get:
+      tags:
+        - Registro de cambios Fìsicos
+      summary: Obtiene los clientes de una tienda 
+      description: Obtiene los clientes de una tienda por medio de la coincidencia del nombre, apellido paterno y materno
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: x-numeroTienda
+          in: header
+          description: Número de la tienda
+          required: true
+          type: integer
+          format: int32
+          default: 4624
+        - name: x-numeroPagina
+          in: header
+          description: numero de pagina a mostrar en pantalla
+          required: true
+          type: integer
+          format: int32
+          default: 1
+        - name: x-totalElementos
+          in: header
+          description: tamaño de la lista a mostrar en pantalla
+          required: true
+          type: integer
+          format: int32
+          default: 1
+        - name: apellidoPaterno
+          in: query
+          description: apellido paterno del cliente a buscar
+          required: true
+          type: string
+          default: "Arteaga"
+        - name: apellidoMaterno
+          in: query
+          description: apellido materno del cliente a buscar
+          required: true
+          type: string
+          default: "Balbuena"
+
+        - name: nombre
+          in: query
+          description: Nombre del cliente a buscar
+          required: true
+          type: string
+          default: "Raul"
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ClientesBuscar'
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "mensaje": "Operación Exitosa",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "resultado": {
+                          "numeroPagina": 1,
+                          "totalElementos": 1,
+                          "clientes": [
+                            {
+                                                "digitoVerificador": "1",
+                              "folio": "1B",
+                              "identificadorClienteElektra": "9-9-9-9",
+                              "identificadorClienteUnico": "01-01-1-1",
+                              "nombre": "Raul Arteaga Balbuena",
+                              "numero": 9,
+                              "numeroNegocio": 9,
+                              "numeroTienda": 4624
+                            }
+                          ]
+                        }
+
+                      }
+                    }
+                   
+                  }
+              }
+        400:
+          description: Entrada incorrecta
+          schema:
+            $ref: "#/definitions/respuesta"
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "codigo": "400.Elektra-Punto-Venta-Cambios-Fisicos.1000",
+                        "mensaje": "Error con los datos de entrada",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "info": "https://baz-developer.bancoazteca.com.mx/errors#400.Elektra-Punto-Venta-Cambios-Fisicos.1000",
+                        "detalles": [
+                          "Datos de Solicitud Inválidos"
+                        ]
+                      }
+                    }
+                }
+              }
+        404:
+          description: No encontrado
+          schema:
+            $ref: "#/definitions/respuestaNoEncontrado"
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "codigo": "404.Elektra-Punto-Venta-Cambios-Fisicos.1200",
+                        "mensaje": "No se encontró información",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "info": "https://baz-developer.bancoazteca.com.mx/errors#404.Elektra-Punto-Venta-Cambios-Fisicos.1200",
+                        "detalles": [
+                          "Sin datos"
+                        ]
+                      }
+                    }
+                }
+              }
+        500:
+          description: Operación Inesperada
+          schema:
+            $ref: "#/definitions/respErrorInterno"
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "codigo": "500.Elektra-Punto-Venta-Cambios-Fisicos.2000",
+                        "mensaje": "Ocurrió un error al procesar su petición",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "info": "https://baz-developer.bancoazteca.com.mx/errors#500.Elektra-Punto-Venta-Cambios-Fisicos.2000",
+                        "detalles": [
+                          "Error interno"
+                        ]
+                      }
+                    }
+                  }
+              }
+      deprecated: false
+  
+  /pedido/{numeroPedido}/detalles:
+    get:
+      tags:
+        - Registro de cambios Fìsicos
+      summary: Obtiene el detalle de un pedido
+      description: Obtiene de las  sucursales de Grupo Elektra el detalle del pedido por numero de pedido
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: x-numeroTienda
+          in: header
+          description: numero de Tienda
+          required: true
+          type: integer
+          format: int32
+          default: 4624
+        - name: numeroPedido
+          in: path
+          description: numero del Pedido
+          required: true
+          type: integer
+          format: int64
+          default: 800043254
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/DetallesPedido'
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "mensaje": "Operación Exitosa",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "resultado": {
+							"pedido": {
+							  "descripcionVenta": "VENTA MOSTRADOR",
+							  "nombreCliente": "Raul Arteaga Balbuena",
+							  "pedido": 800043254,
+							  "tipoVenta": 4,
+							  "productos": [
+								{
+								  "cantidad": 1,
+								  "codigo": 10041,
+								  "descripcion": "Television 32 LG",
+								  "descuento": 250,
+								  "garantia": 0,
+								  "precio": 3500,
+								  "serie": "AAAAA9136",
+								  "solicitaSerie": true
+								}
+							  ]
+							}
+
+                        
+
+                        }
+
+                      }
+                    }
+                   
+                  }
+              }
+          
+        400:
+          description: Entrada incorrecta
+          schema:
+            $ref: "#/definitions/respuesta"
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "codigo": "400.Elektra-Punto-Venta-Cambios-Fisicos.1000",
+                        "mensaje": "Error con los datos de entrada",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "info": "https://baz-developer.bancoazteca.com.mx/errors#400.Elektra-Punto-Venta-Cambios-Fisicos.1000",
+                        "detalles": [
+                          "Datos de Solicitud Inválidos"
+                        ]
+                      }
+                    }
+                }
+              }
+        404:
+          description: No encontrado
+          schema:
+            $ref: "#/definitions/respuestaNoEncontrado"
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "codigo": "404.Elektra-Punto-Venta-Cambios-Fisicos.1200",
+                        "mensaje": "No se encontró información",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "info": "https://baz-developer.bancoazteca.com.mx/errors#404.Elektra-Punto-Venta-Cambios-Fisicos.1200",
+                        "detalles": [
+                          "Sin datos"
+                        ]
+                      }
+                    }
+                }
+              }
+        500:
+          description: Operación Inesperada
+          schema:
+            $ref: "#/definitions/respErrorInterno"
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "codigo": "500.Elektra-Punto-Venta-Cambios-Fisicos.2000",
+                        "mensaje": "Ocurrió un error al procesar su petición",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "info": "https://baz-developer.bancoazteca.com.mx/errors#500.Elektra-Punto-Venta-Cambios-Fisicos.2000",
+                        "detalles": [
+                          "Error interno"
+                        ]
+                      }
+                    }
+                  }
+              }
+      deprecated: false
+  
+  /pedidos:
+    get:
+      tags:
+        - Registro de cambios Fìsicos
+      summary: Obtiene los pedidos de un cliente
+      description: Obtiene de las  sucursales de Grupo Elektra los pedidos de un cliente
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: x-numeroTienda
+          in: header
+          description: Nùmero de Tienda
+          required: true
+          type: integer
+          format: int32
+          default: 4624
+        - name: digitoVerificador
+          in: path
+          description: Digito Verificador asignado al cliente
+          required: true
+          type: integer
+          format: int32
+          default: 1
+        - name: numeroCliente
+          in: path
+          description: Nùmero de Cliente
+          required: true
+          type: integer
+          format: int32
+          default: 1
+        - name: numeroNegocio
+          in: path
+          description: Nùmero de Negocio
+          required: true
+          type: integer
+          format: int32
+          default: 1
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/PedidosList'
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+
+                        "mensaje": "Operación Exitosa",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "resultado": {
+
+							"pedidos": [
+									  {
+										"descripcionVenta": "VENTA MOSTRADOR",
+										"nombreCliente": "Raul Arteaga Balbuena",
+										"pedido": 800043254,
+										"tipoVenta": 4,
+										"productos": [
+										  {
+											"cantidad": 1,
+											"codigo": 10041,
+											"descripcion": "Television 32 LG",
+											"descuento": 250,
+											"garantia": 0,
+											"precio": 3500,
+											"serie": "AAAAA9136",
+											"solicitaSerie": true
+										  }
+										]
+									  }
+									]
+
+                        }
+
+                      }
+                    }
+                   
+                  }
+              }
+			  
+        400:
+          description: Entrada incorrecta
+          schema:
+            $ref: "#/definitions/respuesta"
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "codigo": "400.Elektra-Punto-Venta-Cambios-Fisicos.1000",
+                        "mensaje": "Error con los datos de entrada",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "info": "https://baz-developer.bancoazteca.com.mx/errors#400.Elektra-Punto-Venta-Cambios-Fisicos.1000",
+                        "detalles": [
+                          "Datos de Solicitud Inválidos"
+                        ]
+                      }
+                    }
+                }
+              }
+        404:
+          description: No encontrado
+          schema:
+            $ref: "#/definitions/respuestaNoEncontrado"
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "codigo": "404.Elektra-Punto-Venta-Cambios-Fisicos.1200",
+                        "mensaje": "No se encontró información",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "info": "https://baz-developer.bancoazteca.com.mx/errors#404.Elektra-Punto-Venta-Cambios-Fisicos.1200",
+                        "detalles": [
+                          "Sin datos"
+                        ]
+                      }
+                    }
+                }
+              }
+        500:
+          description: Operación Inesperada
+          schema:
+            $ref: "#/definitions/respErrorInterno"
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "codigo": "500.Elektra-Punto-Venta-Cambios-Fisicos.2000",
+                        "mensaje": "Ocurrió un error al procesar su petición",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "info": "https://baz-developer.bancoazteca.com.mx/errors#500.Elektra-Punto-Venta-Cambios-Fisicos.2000",
+                        "detalles": [
+                          "Error interno"
+                        ]
+                      }
+                    }
+                  }
+              }
+      deprecated: false
+  /{numeroPedido}/estatus/{estatus}:
+    put:
+      tags:
+        - Registro de cambios Fìsicos
+      summary: Actualiza estatus del pedido asociado al cambio fìsico
+      description: Actualiza estatus del pedido asociado al cambio fìsico
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: x-numeroTienda
+          in: header
+          description: Nùmero de la Tienda donde se registro el pedido
+          required: true
+          type: integer
+          format: int32
+          default: 4624
+        - name: numeroPedido
+          in: path
+          description: Nùmero del pedido del cambio fìsico
+          required: true
+          type: integer
+          format: int64
+          default: 800043254
+        - name: estatus
+          in: path
+          description: Estatus en que se encuentra el pedido del cambio fisico
+          required: true
+          type: boolean
+          default: true
+          
+          
+      responses:
+        
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/ActualizaEstatus'
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "mensaje": "Operación Exitosa",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "resultado": {
+                           "actualizado": true
+                        }
+
+                      }
+                    }
+                   
+                  }
+              }
+        
+        
+        400:
+          description: Entrada Incorrecta
+          schema:
+            $ref: "#/definitions/respuesta"
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "codigo": "400.Elektra-Punto-Venta-Cambios-Fisicos.1000",
+                        "mensaje": "Error con los datos de entrada",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "info": "https://baz-developer.bancoazteca.com.mx/errors#400.Elektra-Punto-Venta-Cambios-Fisicos.1000",
+                        "detalles": [
+                          "Datos de Solicitud Inválidos"
+                        ]
+                      }
+                    }
+                  }  
+              }
+        500:
+          description: Operacion Inesperada
+          schema:
+            $ref: "#/definitions/respErrorInterno"
+          examples:
+            application/json:
+              {
+               "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "codigo": "500.Elektra-Punto-Venta-Cambios-Fisicos.2000",
+                        "mensaje": "Ocurrió un error al procesar su petición",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "info": "https://baz-developer.bancoazteca.com.mx/errors#500.Elektra-Punto-Venta-Cambios-Fisicos.2000",
+                        "detalles": [
+                          "Error interno"
+                        ]
+                      }
+                    }
+                 }
+              }
+      deprecated: false
+  
+  /producto:
+    get:
+      tags:
+        - Registro de cambios Fìsicos
+      summary: Obtiene un producto de acuerdo a la clasificación
+      description: Obtiene un producto siempre y cuando sea de la misma clasificación del producto devuelto
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: numeroTienda
+          in: header
+          description: numero de Tienda donde se hizo el registro 
+          required: true
+          type: integer
+          format: int32
+          default: 4624
+        - name: codigoProducto
+          in: query
+          description: codigo del Producto que saldra de la tienda por reposiciòn
+          required: true
+          type: integer
+          format: int32
+          default: 40100
+        - name: codigoProductoDevuelto
+          in: query
+          description: codigo del Producto que sera devuelto para el cambio fìsico
+          required: true
+          type: integer
+          format: int32
+          default: 40100
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Producto'
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "mensaje": "Operación Exitosa",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "resultado": {
+                          "codigoProducto": 10041,
+                          "descripcion": "Television 32 LG",
+                          "precio": 3500,
+                          "serie": "HSKD32K8874M"
+
+
+                        }
+
+                      }
+                    }
+                   
+                  }
+              }
+        400:
+          description: Entrada incorrecta
+          schema:
+            $ref: "#/definitions/respuesta"
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "codigo": "400.Elektra-Punto-Venta-Cambios-Fisicos.1000",
+                        "mensaje": "Error con los datos de entrada",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "info": "https://baz-developer.bancoazteca.com.mx/errors#400.Elektra-Punto-Venta-Cambios-Fisicos.1000",
+                        "detalles": [
+                          "Datos de Solicitud Inválidos"
+                        ]
+                      }
+                    }
+                }
+              }
+        404:
+          description: No encontrado
+          schema:
+            $ref: "#/definitions/respuestaNoEncontrado"
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "codigo": "404.Elektra-Punto-Venta-Cambios-Fisicos.1200",
+                        "mensaje": "No se encontró información",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "info": "https://baz-developer.bancoazteca.com.mx/errors#404.Elektra-Punto-Venta-Cambios-Fisicos.1200",
+                        "detalles": [
+                          "Sin datos"
+                        ]
+                      }
+                    }
+                }
+              }
+        500:
+          description: Operación Inesperada
+          schema:
+            $ref: "#/definitions/respErrorInterno"
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "codigo": "500.Elektra-Punto-Venta-Cambios-Fisicos.2000",
+                        "mensaje": "Ocurrió un error al procesar su petición",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "info": "https://baz-developer.bancoazteca.com.mx/errors#500.Elektra-Punto-Venta-Cambios-Fisicos.2000",
+                        "detalles": [
+                          "Error interno"
+                        ]
+                      }
+                    }
+                  }
+              }
+      deprecated: false
+  /:
+    post:
+      tags:
+        - Registro de cambios Fìsicos
+      summary: Guardar Registro/Surtimiento de los Cambios Fìsicos
+      description: Guarda el registro y Surtimiento de los Cambios Fìsicos
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: x-numeroTienda
+          in: header
+          description: numero de Tienda
+          required: true
+          type: integer
+          format: int64
+        - in: body
+          name: cambioFisico
+          description: Datos para almacenar el cambio fìsico
+          required: true
+          schema:
+            $ref: '#/definitions/RegistroCambioFisicoTO'
+
+      responses:
+        201:
+          description: Creado
+          schema: 
+            $ref: "#/definitions/Creado"
+          examples:
+            application/json:
+              {
+                "sdf": {
+                  "nestedStates": true,
+                  "delta": true,
+                  "sdfType": "EVENT",
+                  "sendTopic": "sendTopic",
+                  "cbTopic": "cbTopic",
+                  "sdfVersion": "1.0",
+                  "prodId": "producerID",
+                  "callId": "22920181120",
+                  "mand": {
+                    "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                    "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                    "instance": "spl099nms5112b_1112",
+                    "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                    "eventName": "SMARTS-Heartbeat"
+                  },
+                  "opt": {
+                    "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                    "severity": "4",
+                    "isRoot": true,
+                    "resource": "SNMPTrap2",
+                    "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                    "impact": "0",
+                    "reportedSource": "UAT-TRAP02",
+                    "maintananceState": "false",
+                    "certainty": "100.0",
+                    "type": "MOMENTARY",
+                    "openedAt": "2019-03-29T13:40:05Z",
+                    "sourceStatus": "INACTIVE",
+                    "occurenceCount": "5865",
+                    "lastClearedAt": "2019-06-20T07:22:05Z",
+                    "acknowledgeState": "false",
+                    "category": "Message",
+                    "affectedCI": "server.fqdn",
+                    "lastOccurredAt": "2018-06-20T07:20:05Z",
+                    "firstOccurredAt": "2018-03-29T13:40:05Z",
+                    "owner": ""
+                  },
+                  "free": {
+                    "respuesta": {
+                      "mensaje": "Operación Exitosa",
+                      "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863"
+                    }
+                  }
+                }
+              }
+        400:
+          description: Entrada Incorrecta
+          schema: 
+            $ref: "#/definitions/respuesta"
+          examples:
+            application/json:
+              {
+                "sdf": {
+                "nestedStates": true,
+                "delta": true,
+                "sdfType": "EVENT",
+                "sendTopic": "sendTopic",
+                "cbTopic": "cbTopic",
+                "sdfVersion": "1.0",
+                "prodId": "producerID",
+                "callId": "22920181120",
+                "mand": {
+                  "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                  "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                  "instance": "spl099nms5112b_1112",
+                  "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                  "eventName": "SMARTS-Heartbeat"
+                },
+                "opt": {
+                  "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                  "severity": "4",
+                  "isRoot": true,
+                  "resource": "SNMPTrap2",
+                  "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                  "impact": "0",
+                  "reportedSource": "UAT-TRAP02",
+                  "maintananceState": "false",
+                  "certainty": "100.0",
+                  "type": "MOMENTARY",
+                  "openedAt": "2019-03-29T13:40:05Z",
+                  "sourceStatus": "INACTIVE",
+                  "occurenceCount": "5865",
+                  "lastClearedAt": "2019-06-20T07:22:05Z",
+                  "acknowledgeState": "false",
+                  "category": "Message",
+                  "affectedCI": "server.fqdn",
+                  "lastOccurredAt": "2018-06-20T07:20:05Z",
+                  "firstOccurredAt": "2018-03-29T13:40:05Z",
+                  "owner": ""
+                },
+                "free": {
+                  "respuesta": {
+                    "codigo": "400.Elektra-Punto-Venta-Cambios-Fisicos.1000",
+                    "mensaje": "Error con los datos de entrada",
+                    "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                    "info": "https://baz-developer.bancoazteca.com.mx/errors#400.Elektra-Punto-Venta-Cambios-Fisicos.1000",
+                    "detalles": [
+                      "Datos de Solicitud Inválidos"
+                    ]
+                  }
+                }
+              }
+            }
+        500:
+          description: Operación Inesperada
+          schema: 
+            $ref: "#/definitions/respErrorInterno"
+          examples:
+            application/json:
+              {
+                "sdf": {
+                "nestedStates": true,
+                "delta": true,
+                "sdfType": "EVENT",
+                "sendTopic": "sendTopic",
+                "cbTopic": "cbTopic",
+                "sdfVersion": "1.0",
+                "prodId": "producerID",
+                "callId": "22920181120",
+                "mand": {
+                  "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                  "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                  "instance": "spl099nms5112b_1112",
+                  "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                  "eventName": "SMARTS-Heartbeat"
+                },
+                "opt": {
+                  "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                  "severity": "4",
+                  "isRoot": true,
+                  "resource": "SNMPTrap2",
+                  "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                  "impact": "0",
+                  "reportedSource": "UAT-TRAP02",
+                  "maintananceState": "false",
+                  "certainty": "100.0",
+                  "type": "MOMENTARY",
+                  "openedAt": "2019-03-29T13:40:05Z",
+                  "sourceStatus": "INACTIVE",
+                  "occurenceCount": "5865",
+                  "lastClearedAt": "2019-06-20T07:22:05Z",
+                  "acknowledgeState": "false",
+                  "category": "Message",
+                  "affectedCI": "server.fqdn",
+                  "lastOccurredAt": "2018-06-20T07:20:05Z",
+                  "firstOccurredAt": "2018-03-29T13:40:05Z",
+                  "owner": ""
+                },
+                "free": {
+                  "respuesta": {
+                    "codigo": "500.Elektra-Punto-Venta-Cambios-Fisicos.2000",
+                    "mensaje": "Ocurrió un error al procesar su petición",
+                    "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                    "info": "https://baz-developer.bancoazteca.com.mx/errors#500.Elektra-Punto-Venta-Cambios-Fisicos.2000",
+                    "detalles": [
+                      "Error interno"
+                    ]
+                  }
+                }
+              }
+            }
+
+      deprecated: false
+ 
+  /cambios-fisicos:
+    post:
+      tags:
+        - Consulta de los Cambios Físicos
+      summary: Consultar los cambios fisicos de Centralización de Operaciones Inventario en Tienda
+      description:  Consulta los cambios fisicos de 3 diferentes formas 1.- número de tienda, número de página, total de elementos y estatus 2.- número de tienda, pedido y estatus 3.- numero de tienda, numero de página, total de elemento, fecha inicio, fecha final y estatus de   Centralización de Operaciones Inventario en Tienda
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: x-numeroTienda
+          in: header
+          description: Numero de Tienda
+          required: true
+          type: integer
+          default: 4624
+          format: int64
+        - name: x-numeroPagina
+          in: header
+          description: Nùmero de pagina a mostrar en la paginaciòn
+          required: false
+          type: integer
+          format: int32
+          default: 1
+        - name: x-totalElementos
+          in: header
+          description: Tamaño de registros a mostrar en la paginaciòn
+          required: false
+          type: integer
+          format: int32
+          default: 1
+        - name: busquedas
+          in: body
+          description: >-
+            Permite establecer los valores para realizar la búsqueda de los pedidos 
+          required: true
+          schema:
+            $ref: "#/definitions/BusquedaPedidos"
+        
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/Pedidos'
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "mensaje": "Operación Exitosa",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "resultado": {
+                          "numeroPagina": 1,
+                          "totalElementos": 1,
+                          "pedidos": [
+                        {
+                          "descripcionVenta": "VENTA MOSTRADOR",
+                          "diferencia": 0,
+                          "estatus": 1,
+                          "fechaRegistro": "30-04-2020T04:08:48.447Z",
+                          "motivoRemate": 1,
+                          "nombreCliente": "Raul Arteaga Balbuena",
+                          "pedido": 800043254,
+                          "tienda": 4624,
+                          "tiendaForanea": 7810,
+                          "tipoVenta": 4,
+                          "preguntasRemate": {
+                              "descripcion": "Mal estado",
+                              "idChecklist": 1
+                          },
+                          "productoEntradaCambio": {
+                            "cantidad": 1,
+                            "codigo": 10041,
+                            "descripcion": "Television 32 LG",
+                            "descuento": 250,
+                            "garantia": 0,
+                            "precio": 3500,
+                            "serie": "AAAAA9136",
+                            "solicitaSerie": true
+                          },
+                          "productoSalidaCambio": {
+                            "codigo": 10041,
+                            "descripcion": "Television 32 LG",
+                            "precio": 3500,
+                            "serie": "HSKD32K8874M"
+                          }
+                        }
+                      ]
+
+
+                        }
+
+                      }
+                    }
+                   
+                  }
+              }
+        400:
+          description: Entrada incorrecta
+          schema:
+            $ref: "#/definitions/respuesta"
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "codigo": "400.Elektra-Punto-Venta-Cambios-Fisicos.1000",
+                        "mensaje": "Error con los datos de entrada",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "info": "https://baz-developer.bancoazteca.com.mx/errors#400.Elektra-Punto-Venta-Cambios-Fisicos.1000",
+                        "detalles": [
+                          "Datos de Solicitud Inválidos"
+                        ]
+                      }
+                    }
+                }
+              }
+        404:
+          description: No encontrado
+          schema:
+            $ref: "#/definitions/respuestaNoEncontrado"
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "codigo": "404.Elektra-Punto-Venta-Cambios-Fisicos.1200",
+                        "mensaje": "No se encontró información",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "info": "https://baz-developer.bancoazteca.com.mx/errors#404.Elektra-Punto-Venta-Cambios-Fisicos.1200",
+                        "detalles": [
+                          "Sin datos"
+                        ]
+                      }
+                    }
+                }
+              }
+        500:
+          description: Operación Inesperada
+          schema:
+            $ref: "#/definitions/respErrorInterno"
+          examples:
+            application/json:
+              {
+                "sdf": {
+                "nestedStates": true,
+                "delta": true,
+                "sdfType": "EVENT",
+                "sendTopic": "sendTopic",
+                "cbTopic": "cbTopic",
+                "sdfVersion": "1.0",
+                "prodId": "producerID",
+                "callId": "22920181120",
+                "mand": {
+                  "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                  "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                  "instance": "spl099nms5112b_1112",
+                  "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                  "eventName": "SMARTS-Heartbeat"
+                },
+                "opt": {
+                  "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                  "severity": "4",
+                  "isRoot": true,
+                  "resource": "SNMPTrap2",
+                  "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                  "impact": "0",
+                  "reportedSource": "UAT-TRAP02",
+                  "maintananceState": "false",
+                  "certainty": "100.0",
+                  "type": "MOMENTARY",
+                  "openedAt": "2019-03-29T13:40:05Z",
+                  "sourceStatus": "INACTIVE",
+                  "occurenceCount": "5865",
+                  "lastClearedAt": "2019-06-20T07:22:05Z",
+                  "acknowledgeState": "false",
+                  "category": "Message",
+                  "affectedCI": "server.fqdn",
+                  "lastOccurredAt": "2018-06-20T07:20:05Z",
+                  "firstOccurredAt": "2018-03-29T13:40:05Z",
+                  "owner": ""
+                },
+                "free": {
+                  "respuesta": {
+                    "codigo": "500.Elektra-Punto-Venta-Cambios-Fisicos.2000",
+                    "mensaje": "Ocurrió un error al procesar su petición",
+                    "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                    "info": "https://baz-developer.bancoazteca.com.mx/errors#500.Elektra-Punto-Venta-Cambios-Fisicos.2000",
+                    "detalles": [
+                      "Error interno"
+                    ]
+                  }
+                }
+              }
+            }
+      deprecated: false
+  /{codigoProducto}/seriales/{serie}/operacion/{tipoOperacion}/validaciones:
+    get:
+      tags:
+        - Registro de cambios Fìsicos
+      summary: Valida la existencia de la serie
+      description: Valida si la serie le pertenece al producto y al numero de tienda que se manda en el request y el numero de serie debe pertenecer al tipo de operación.
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: x-numeroTienda
+          in: header
+          description: numero de la Tienda
+          required: true
+          type: integer
+          format: int32
+          default: 4624
+        - name: codigoProducto
+          in: path
+          description: Còdigo del Producto
+          required: true
+          type: integer
+          format: int32
+          default: 40100
+        - name: serie
+          in: path
+          description: serie del producto
+          required: true
+          type: string
+          default: "AAAAA9136"
+        - name: tipoOperacion
+          in: path
+          description: Tipo de Operacion(entrada/salida)
+          required: true
+          type: integer
+          format: int32
+          default: 1
+      responses:
+        '200':
+          description: OK
+          schema:
+            $ref: '#/definitions/ValidacionSerie'
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "mensaje": "Operación Exitosa",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "resultado": {
+                          "serieValida": true
+                      }
+
+                      }
+                    }
+                   
+                  }
+              }
+        400:
+          description: Entrada incorrecta
+          schema:
+            $ref: "#/definitions/respuesta"
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "codigo": "400.Elektra-Punto-Venta-Cambios-Fisicos.1000",
+                        "mensaje": "Error con los datos de entrada",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "info": "https://baz-developer.bancoazteca.com.mx/errors#400.Elektra-Punto-Venta-Cambios-Fisicos.1000",
+                        "detalles": [
+                          "Datos de Solicitud Inválidos"
+                        ]
+                      }
+                    }
+                }
+              }
+        404:
+          description: No encontrado
+          schema:
+            $ref: "#/definitions/respuestaNoEncontrado"
+          examples:
+            application/json:
+              {
+                "sdf":{
+                    "nestedStates": true,
+                    "delta": true,
+                    "sdfType": "EVENT",
+                    "sendTopic": "sendTopic",
+                    "cbTopic": "cbTopic",
+                    "sdfVersion": "1.0",
+                    "prodId": "producerID",
+                    "callId": "",
+                    "mand": {
+                      "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                      "instance": "spl099nms5112b_1112",
+                      "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "eventName": "SMARTS-Heartbeat"
+                    },
+                    "opt": {
+                      "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                      "severity": "4",
+                      "isRoot": true,
+                      "resource": "SNMPTrap2",
+                      "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                      "impact": "0",
+                      "reportedSource": "UAT-TRAP02",
+                      "maintananceState": "false",
+                      "certainty": "100.0",
+                      "type": "MOMENTARY",
+                      "openedAt": "2019-03-29T13:40:05Z",
+                      "sourceStatus": "INACTIVE",
+                      "occurenceCount": "5865",
+                      "lastClearedAt": "2019-06-20T07:22:05Z",
+                      "acknowledgeState": "false",
+                      "category": "Message",
+                      "affectedCI": "server.fqdn",
+                      "lastOccurredAt": "2018-06-20T07:20:05Z",
+                      "firstOccurredAt": "2018-03-29T13:40:05Z",
+                      "owner": ""
+                    },
+                    "free": {
+                      "respuesta": {
+                        "codigo": "404.Elektra-Punto-Venta-Cambios-Fisicos.1200",
+                        "mensaje": "No se encontró información",
+                        "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                        "info": "https://baz-developer.bancoazteca.com.mx/errors#404.Elektra-Punto-Venta-Cambios-Fisicos.1200",
+                        "detalles": [
+                          "Sin datos"
+                        ]
+                      }
+                    }
+                }
+              }
+        500:
+          description: Operación Inesperada
+          schema:
+            $ref: "#/definitions/respErrorInterno"
+          examples:
+            application/json:
+              {
+                "sdf": {
+                "nestedStates": true,
+                "delta": true,
+                "sdfType": "EVENT",
+                "sendTopic": "sendTopic",
+                "cbTopic": "cbTopic",
+                "sdfVersion": "1.0",
+                "prodId": "producerID",
+                "callId": "22920181120",
+                "mand": {
+                  "sourceId": "http://spl099fmg5112.camsga.local:8080/smarts-edaa/msa/TEST-SAM01-PRES/instances/ICS_Notification::NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                  "eventId": "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09",
+                  "instance": "spl099nms5112b_1112",
+                  "description": "Heartbeat Event: SMARTS processeda Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                  "eventName": "SMARTS-Heartbeat"
+                },
+                "opt": {
+                  "summary": "Heartbeat Event: SMARTS processed a Heartbeat event sent at 'Thu Jun 20 02:20:04 CDT 2019'.",
+                  "severity": "4",
+                  "isRoot": true,
+                  "resource": "SNMPTrap2",
+                  "lastUpdatedAt": "2018-06-20T07:22:09Z",
+                  "impact": "0",
+                  "reportedSource": "UAT-TRAP02",
+                  "maintananceState": "false",
+                  "certainty": "100.0",
+                  "type": "MOMENTARY",
+                  "openedAt": "2019-03-29T13:40:05Z",
+                  "sourceStatus": "INACTIVE",
+                  "occurenceCount": "5865",
+                  "lastClearedAt": "2019-06-20T07:22:05Z",
+                  "acknowledgeState": "false",
+                  "category": "Message",
+                  "affectedCI": "server.fqdn",
+                  "lastOccurredAt": "2018-06-20T07:20:05Z",
+                  "firstOccurredAt": "2018-03-29T13:40:05Z",
+                  "owner": ""
+                },
+                "free": {
+                  "respuesta": {
+                    "codigo": "500.Elektra-Punto-Venta-Cambios-Fisicos.2000",
+                    "mensaje": "Ocurrió un error al procesar su petición",
+                    "folio": "cf3e4d0f-f0f7-460a-9ea7-359cec37e863",
+                    "info": "https://baz-developer.bancoazteca.com.mx/errors#500.Elektra-Punto-Venta-Cambios-Fisicos.2000",
+                    "detalles": [
+                      "Error interno"
+                    ]
+                  }
+                }
+              }
+            }
+      deprecated: false
+definitions:
+
+  
+
+  Preguntas:
+    type: object
+    properties:
+      descripcion:
+        type: string
+        description: Descripciòn de la pregunta
+        example: "Mal estado"
+      idChecklist:
+        type: integer
+        format: int32
+        description: Identificador de la pregunta
+        example: 1
+        
+    title: Preguntas
+    
+  BusquedaPedidos:
+    type: object
+    properties:
+      pedido:
+        description: Numero de pedido
+        type: integer
+        format: int64
+        example: 800043254
+      fechaInicio:
+        description: Fecha inicio para la busqueda
+        type: string
+        example: "20-04-2020"
+      fechaFinal:
+        description: Fecha final de la busqueda
+        type: string
+        example: "06-05-2020"
+      
+      estatus:
+        type: array
+        description: Campo obligatorio para saber el estatus en que se encuentra el pédido
+        items:
+          $ref: '#/definitions/EstatusTO'
+          
+  EstatusTO:
+    type: object
+    properties:
+      estatus:
+        type: integer
+        format: int32
+        description: Número del identificador del estatus
+        example: 1
+                              
+
+      
+          
+  ClienteTO:
+    type: object
+    properties:
+      digitoVerificador:
+        type: string
+        description: numero ùnico verificador perteneciente al cliente
+        example: 1
+      folio:
+        type: string
+        description: Folio asignado al cliente
+        example: "1B"
+      identificadorClienteElektra:
+        type: string
+        description: Identificador del cliente elektra
+        example: "9-9-9-9"
+      identificadorClienteUnico:
+        type: string
+        description: Identificador de cliente unico asignado al cliente
+        example: "01-01-1-1"
+      nombre:
+        type: string
+        description: Nombre del cliente
+        example: "Raul Arteaga Balbuena"
+      numero:
+        type: integer
+        format: int32
+        description: Numero asignado al cliente
+        example: 9
+      numeroNegocio:
+        type: integer
+        format: int32
+        description: Numero del negocio
+        example: 9
+      numeroTienda:
+        type: integer
+        format: int32
+        description: numero de la tienda
+        example: 4624
+    title: ClienteTO
+
+  PaginacionClienteTO:
+    type: object
+    properties:
+      numeroPagina:
+        type: integer
+        format: int32
+        description: Numero de pagina a mostrar en pantalla
+        example: 1
+      totalElementos:
+        type: integer
+        format: int32
+        description: total de clientes a mostrar en pantalla
+        example: 1
+      clientes:
+        type: array
+        items:
+          $ref: '#/definitions/ClienteTO'
+        
+  ClientesBuscar:
+    type: object
+    properties:
+      nestedStates:
+        type: boolean
+        description: Indica si el evento se debe tratar como información completa
+        example: true
+      delta:
+        type: boolean
+        description: Indica si el evento se debe tratar como una actualización de información
+        example: true
+      sdfType:
+        type: string
+        description:  Tipo de operación realizada
+        example: "EVENT"
+      sendTopic:
+        type: string
+        description: Define el valor de la propiedad sendTopic
+        example: "sendTopic"
+      cbTopic:
+        type: string
+        description: Define el valor de la propiedad cbTopic
+        example: "cbTopic"
+      sdfVersion:
+          type: number
+          format: double
+          description: Numero de version
+          example: 1.0
+      prodId:
+          type: string
+          description: Id de quien produce el evento
+          example: "producerID"
+      callId:
+          type: string
+          description: Id de la llamada al evento
+          example: "Message"
+      mand:
+        $ref: "#/definitions/mand"
+      opt:
+        $ref: "#/definitions/opt"
+      free:
+        type: object
+        properties:
+          respuesta:
+            type: object
+            properties:
+              mensaje:
+                type: string
+                description: respuesta de la operación
+                example: "Operación Exitosa"
+              folio:
+                type: string
+                example: "cf3e4d0f-f0f7-460a-9ea7-359cec37e863"
+                description: Identificador de rastreabilidad o identificador global único que se genera automáticamente para cada solicitud que recibe el backend
+              resultado:
+                  $ref: "#/definitions/PaginacionClienteTO"
+
+  
+  
+  ValidacionSerie:
+    type: object
+    properties:
+      nestedStates:
+        type: boolean
+        description: Indica si el evento se debe tratar como información completa
+        example: true
+      delta:
+        type: boolean
+        description: Indica si el evento se debe tratar como una actualización de información
+        example: true
+      sdfType:
+        type: string
+        description:  Tipo de operación realizada
+        example: "EVENT"
+      sendTopic:
+        type: string
+        description: Define el valor de la propiedad sendTopic
+        example: "sendTopic"
+      cbTopic:
+        type: string
+        description: Define el valor de la propiedad cbTopic
+        example: "cbTopic"
+      sdfVersion:
+          type: number
+          format: double
+          description: Numero de version
+          example: 1.0
+      prodId:
+          type: string
+          description: Id de quien produce el evento
+          example: "producerID"
+      callId:
+          type: string
+          description: Id de la llamada al evento
+          example: "Message"
+      mand:
+        $ref: "#/definitions/mand"
+      opt:
+        $ref: "#/definitions/opt"
+      free:
+        type: object
+        properties:
+          respuesta:
+            type: object
+            properties:
+              mensaje:
+                type: string
+                description: respuesta de la operación
+                example: "Operación Exitosa"
+              folio:
+                type: string
+                example: "cf3e4d0f-f0f7-460a-9ea7-359cec37e863"
+                description: Identificador de rastreabilidad o identificador global único que se genera automáticamente para cada solicitud que recibe el backend
+              resultado:
+                type: object
+                properties: 
+                  serieValida:
+                    type: boolean
+                    description: Indica si la serie existe y tiene el estatus solicitado
+                    example: true
+                    
+  ActualizaEstatus:
+    type: object
+    properties:
+      nestedStates:
+        type: boolean
+        description: Indica si el evento se debe tratar como información completa
+        example: true
+      delta:
+        type: boolean
+        description: Indica si el evento se debe tratar como una actualización de información
+        example: true
+      sdfType:
+        type: string
+        description:  Tipo de operación realizada
+        example: "EVENT"
+      sendTopic:
+        type: string
+        description: Define el valor de la propiedad sendTopic
+        example: "sendTopic"
+      cbTopic:
+        type: string
+        description: Define el valor de la propiedad cbTopic
+        example: "cbTopic"
+      sdfVersion:
+          type: number
+          format: double
+          description: Numero de version
+          example: 1.0
+      prodId:
+          type: string
+          description: Id de quien produce el evento
+          example: "producerID"
+      callId:
+          type: string
+          description: Id de la llamada al evento
+          example: "Message"
+      mand:
+        $ref: "#/definitions/mand"
+      opt:
+        $ref: "#/definitions/opt"
+      free:
+        type: object
+        properties:
+          respuesta:
+            type: object
+            properties:
+              mensaje:
+                type: string
+                description: respuesta de la operación
+                example: "Operación Exitosa"
+              folio:
+                type: string
+                example: "cf3e4d0f-f0f7-460a-9ea7-359cec37e863"
+                description: Identificador de rastreabilidad o identificador global único que se genera automáticamente para cada solicitud que recibe el backend
+              resultado:
+                type: object
+                properties: 
+                  actualizado:
+                    type: boolean
+                    description: Indica si se realizo la actulizaciòn(true = ok, false= error)
+                    example: true
+  
+  ProductosCatalogo:
+    type: object
+    properties:
+      nestedStates:
+        type: boolean
+        description: Indica si el evento se debe tratar como información completa
+        example: true
+      delta:
+        type: boolean
+        description: Indica si el evento se debe tratar como una actualización de información
+        example: true
+      sdfType:
+        type: string
+        description:  Tipo de operación realizada
+        example: "EVENT"
+      sendTopic:
+        type: string
+        description: Define el valor de la propiedad sendTopic
+        example: "sendTopic"
+      cbTopic:
+        type: string
+        description: Define el valor de la propiedad cbTopic
+        example: "cbTopic"
+      sdfVersion:
+          type: number
+          format: double
+          description: Numero de version
+          example: 1.0
+      prodId:
+          type: string
+          description: Id de quien produce el evento
+          example: "producerID"
+      callId:
+          type: string
+          description: Id de la llamada al evento
+          example: "Message"
+      mand:
+        $ref: "#/definitions/mand"
+      opt:
+        $ref: "#/definitions/opt"
+      free:
+        type: object
+        properties:
+          respuesta:
+            type: object
+            properties:
+              mensaje:
+                type: string
+                description: respuesta de la operación
+                example: "Operación Exitosa"
+              folio:
+                type: string
+                example: "cf3e4d0f-f0f7-460a-9ea7-359cec37e863"
+                description: Identificador de rastreabilidad o identificador global único que se genera automáticamente para cada solicitud que recibe el backend
+              resultado:
+                  $ref: "#/definitions/PaginacionProductoTO"
+                  
+  PaginacionProductoTO:
+    type: object
+    properties:
+      numeroPagina:
+        type: integer
+        format: int32
+        description: Pàgina que se muestra en el objeto paginado
+        example: 1
+      totalElementos:
+        type: integer
+        format: int32
+        description: total de elementos que se regresa
+        example: 1
+      productos:
+        type: array
+        items:
+          $ref: '#/definitions/ProductoTO'
+  
+  Producto:
+    type: object
+    properties:
+      nestedStates:
+        type: boolean
+        description: Indica si el evento se debe tratar como información completa
+        example: true
+      delta:
+        type: boolean
+        description: Indica si el evento se debe tratar como una actualización de información
+        example: true
+      sdfType:
+        type: string
+        description:  Tipo de operación realizada
+        example: "EVENT"
+      sendTopic:
+        type: string
+        description: Define el valor de la propiedad sendTopic
+        example: "sendTopic"
+      cbTopic:
+        type: string
+        description: Define el valor de la propiedad cbTopic
+        example: "cbTopic"
+      sdfVersion:
+          type: number
+          format: double
+          description: Numero de version
+          example: 1.0
+      prodId:
+          type: string
+          description: Id de quien produce el evento
+          example: "producerID"
+      callId:
+          type: string
+          description: Id de la llamada al evento
+          example: "Message"
+      mand:
+        $ref: "#/definitions/mand"
+      opt:
+        $ref: "#/definitions/opt"
+      free:
+        type: object
+        properties:
+          respuesta:
+            type: object
+            properties:
+              mensaje:
+                type: string
+                description: respuesta de la operación
+                example: "Operación Exitosa"
+              folio:
+                type: string
+                example: "cf3e4d0f-f0f7-460a-9ea7-359cec37e863"
+                description: Identificador de rastreabilidad o identificador global único que se genera automáticamente para cada solicitud que recibe el backend
+              resultado:
+                   $ref: "#/definitions/ProductoUnicoTO"
+                   
+  Pedidos:
+    type: object
+    properties:
+      nestedStates:
+        type: boolean
+        description: Indica si el evento se debe tratar como información completa
+        example: true
+      delta:
+        type: boolean
+        description: Indica si el evento se debe tratar como una actualización de información
+        example: true
+      sdfType:
+        type: string
+        description:  Tipo de operación realizada
+        example: "EVENT"
+      sendTopic:
+        type: string
+        description: Define el valor de la propiedad sendTopic
+        example: "sendTopic"
+      cbTopic:
+        type: string
+        description: Define el valor de la propiedad cbTopic
+        example: "cbTopic"
+      sdfVersion:
+          type: number
+          format: double
+          description: Numero de version
+          example: 1.0
+      prodId:
+          type: string
+          description: Id de quien produce el evento
+          example: "producerID"
+      callId:
+          type: string
+          description: Id de la llamada al evento
+          example: "Message"
+      mand:
+        $ref: "#/definitions/mand"
+      opt:
+        $ref: "#/definitions/opt"
+      free:
+        type: object
+        properties:
+          respuesta:
+            type: object
+            properties:
+              mensaje:
+                type: string
+                description: respuesta de la operación
+                example: "Operación Exitosa"
+              folio:
+                type: string
+                example: "cf3e4d0f-f0f7-460a-9ea7-359cec37e863"
+                description: Identificador de rastreabilidad o identificador global único que se genera automáticamente para cada solicitud que recibe el backend
+              resultado:
+                   $ref: "#/definitions/PaginacionTOCambioFisicoTO"
+                   
+  PaginacionTOCambioFisicoTO:
+    type: object
+    properties:
+      numeroPagina:
+        type: integer
+        format: int32
+        description: Pagina que se mostrara en pantalla
+        example: 1
+      totalElementos:
+        type: integer
+        format: int32
+        description: Numero de 
+      pedidos:
+        type: array
+        items:
+          $ref: '#/definitions/RegistroCambioFisicoTO'
+    title: PaginacionTOCambioFisicoTO
+    
+  Creado:
+    type: object
+    properties:
+      nestedStates:
+        type: boolean
+        description: Indica si el evento se debe tratar como información completa
+        example: true
+      delta:
+        type: boolean
+        description: Indica si el evento se debe tratar como una actualización de información
+        example: true
+      sdfType:
+        type: string
+        description:  Tipo de operación realizada
+        example: "EVENT"
+      sendTopic:
+        type: string
+        description: Define el valor de la propiedad sendTopic
+        example: "sendTopic"
+      cbTopic:
+        type: string
+        description: Define el valor de la propiedad cbTopic
+        example: "cbTopic"
+      sdfVersion:
+          type: number
+          format: double
+          description: Numero de version
+          example: 1.0
+      prodId:
+          type: string
+          description: Id de quien produce el evento
+          example: "producerID"
+      callId:
+          type: string
+          description: Id de la llamada al evento
+          example: "Message"
+      mand:
+        $ref: "#/definitions/mand"
+      opt:
+        $ref: "#/definitions/opt"
+      free:
+        type: object
+        properties:
+          respuesta:
+            type: object
+            properties:
+              mensaje:
+                type: string
+                description: respuesta de la operación
+                example: "Operación Exitosa"
+              folio:
+                type: string
+                description: Identificador de rastreabilidad o identificador global único que se genera automáticamente para cada solicitud que recibe el backend
+                example: "cf3e4d0f-f0f7-460a-9ea7-359cec37e863"
+    
+  
+  DetallesPedido:
+    type: object
+    properties:
+      nestedStates:
+        type: boolean
+        description: Indica si el evento se debe tratar como información completa
+        example: true
+      delta:
+        type: boolean
+        description: Indica si el evento se debe tratar como una actualización de información
+        example: true
+      sdfType:
+        type: string
+        description:  Tipo de operación realizada
+        example: "EVENT"
+      sendTopic:
+        type: string
+        description: Define el valor de la propiedad sendTopic
+        example: "sendTopic"
+      cbTopic:
+        type: string
+        description: Define el valor de la propiedad cbTopic
+        example: "cbTopic"
+      sdfVersion:
+          type: number
+          format: double
+          description: Numero de version
+          example: 1.0
+      prodId:
+          type: string
+          description: Id de quien produce el evento
+          example: "producerID"
+      callId:
+          type: string
+          description: Id de la llamada al evento
+          example: "Message"
+      mand:
+        $ref: "#/definitions/mand"
+      opt:
+        $ref: "#/definitions/opt"
+      free:
+        type: object
+        properties:
+          respuesta:
+            type: object
+            properties:
+              mensaje:
+                type: string
+                description: respuesta de la operación
+                example: "Operación Exitosa"
+              folio:
+                type: string
+                example: "cf3e4d0f-f0f7-460a-9ea7-359cec37e863"
+                description: Identificador de rastreabilidad o identificador global único que se genera automáticamente para cada solicitud que recibe el backend
+              resultado:
+                type: object
+                properties: 
+                  pedido:
+                    $ref: "#/definitions/PedidosTO"
+  PedidosList:
+    type: object
+    properties:
+      nestedStates:
+        type: boolean
+        description: Indica si el evento se debe tratar como información completa
+        example: true
+      delta:
+        type: boolean
+        description: Indica si el evento se debe tratar como una actualización de información
+        example: true
+      sdfType:
+        type: string
+        description:  Tipo de operación realizada
+        example: "EVENT"
+      sendTopic:
+        type: string
+        description: Define el valor de la propiedad sendTopic
+        example: "sendTopic"
+      cbTopic:
+        type: string
+        description: Define el valor de la propiedad cbTopic
+        example: "cbTopic"
+      sdfVersion:
+          type: number
+          format: double
+          description: Numero de version
+          example: 1.0
+      prodId:
+          type: string
+          description: Id de quien produce el evento
+          example: "producerID"
+      callId:
+          type: string
+          description: Id de la llamada al evento
+          example: "Message"
+      mand:
+        $ref: "#/definitions/mand"
+      opt:
+        $ref: "#/definitions/opt"
+      free:
+        type: object
+        properties:
+          respuesta:
+            type: object
+            properties:
+              mensaje:
+                type: string
+                description: respuesta de la operación
+                example: "Operación Exitosa"
+              folio:
+                type: string
+                example: "cf3e4d0f-f0f7-460a-9ea7-359cec37e863"
+                description: Identificador de rastreabilidad o identificador global único que se genera automáticamente para cada solicitud que recibe el backend
+              resultado:
+                type: object
+                properties: 
+                  pedidos:
+                    type: array
+                    items:
+                      $ref: "#/definitions/PedidosTO"
+                   
+  PedidosTO:
+    type: object
+    properties:
+      descripcionVenta:
+        type: string
+        format: int32
+        description: Forma en que se realizò a venta
+        example: "VENTA MOSTRADOR"
+      nombreCliente:
+        type: string
+        description: Nombre del cliente
+        example: "Raul Arteaga Balbuena"
+      pedido:
+        type: integer
+        format: int32
+        description: Numero asignado para seguimiento
+        example: 800043254
+      tipoVenta:
+        type: integer
+        format: int32
+        description: Identificador de la venta
+        example: 4
+      productos:
+        type: array
+        items:
+          $ref: '#/definitions/ProductoListaDTO'
+    title: PedidosTO
+    
+  ProductoListaDTO:
+    type: object
+    properties:
+      cantidad:
+        type: integer
+        format: int32
+        description: cantidad de productos
+        example: 1
+      codigo:
+        type: integer
+        format: int32
+        description: codigo del producto
+        example: 10041
+      descripcion:
+        type: string
+        description: Descripciòn del producto
+        example: "Television 32 LG"
+      descuento:
+        type: number
+        description: Descuento que se aplica al producto
+        example: 250
+      garantia:
+        type: integer
+        format: int32
+        description: Tipo de garantia que tiene el producto
+        example: 0
+      precio:
+        type: number
+        description: Precio del producto
+        example: 3500
+      serie:
+        type: string
+        description: Serie del producto
+        example: "AAAAA9136"
+      solicitaSerie:
+        type: boolean
+        description: Indica si el producto requiere serie
+        example: true
+    title: ProductoListaDTO
+  ProductoTO:
+    type: object
+    properties:
+      codigo:
+        type: integer
+        format: int32
+        description: Identificador ùnico del producto
+        example: 10041
+      descripcion:
+        type: string
+        description: Descripciòn del producto
+        example: "Television 32 LG"
+      precio:
+        type: number
+        description: precio del producto
+        example: 3500
+      serie:
+        type: string
+        description: serie/identificador del producto
+        example: "HSKD32K8874M"
+        
+  ProductoUnicoTO:
+    type: object
+    properties:
+      codigoProducto:
+        type: integer
+        format: int32
+        description: Identificador ùnico del producto
+        example: 10041
+      descripcion:
+        type: string
+        description: Descripciòn del producto
+        example: "Television 32 LG"
+      precio:
+        type: number
+        description: precio del producto
+        example: 3500
+      serie:
+        type: string
+        description: serie/identificador del producto
+        example: "HSKD32K8874M"
+
+  RegistroCambioFisicoTO:
+    type: object
+    properties:
+      descripcionVenta:
+        type: string
+        description: Descripciòn de como se realizo la venta
+        example: "VENTA MOSTRADOR"
+      diferencia:
+        type: number
+        description: Cantidad a pagar resultado de la diferencia de precios
+        example: 0
+      estatus:
+        type: integer
+        format: int32
+        description: Estatus en que se encuentra el cambio Fisico
+        example: 1
+      fechaRegistro:
+        type: string
+        format: date-time
+        description: Fecha en que se hizo el registro del cambio
+        example: "30-04-2020T04:08:48.447Z"
+      motivoRemate:
+        type: integer
+        format: int32
+        description: Razòn por el cual se manda el producto a remate
+        example: 1
+      nombreCliente:
+        type: string
+        description: Nombre del cliente
+        example: "Raul Arteaga Balbuena"
+      pedido:
+        type: integer
+        format: int32
+        description: Numero de seguimiento del pedido
+        example: 800043254
+      tienda:
+        type: integer
+        format: int32
+        description: Nùmero de tienda del registro
+        example: 4624
+      tiendaForanea:
+        type: integer
+        format: int32
+        description: Nùmero de tienda foranea
+        example: 7810
+      tipoVenta:
+        type: integer
+        format: int32
+        description: Identificador del tipo venta
+        example: 4
+      preguntasRemate:
+        $ref: '#/definitions/Preguntas'
+      productoEntradaCambio:
+        $ref: '#/definitions/ProductoListaDTO'
+      productoSalidaCambio:
+        $ref: '#/definitions/ProductoTO'
+    title: RegistroCambioFisicoTO
+
+  respuesta:
+    title: Respuesta
+    type: object
+    properties:
+      nestedStates: 
+        type: boolean
+        description: Indica si el evento se debe tratar como información completa
+        example: true
+      delta: 
+        type: boolean
+        description: Indica si el evento se debe tratar como una actualización de información
+        example: true
+      sdfType: 
+        type: string
+        description: Tipo de operación realizada
+        example: "EVENT"
+      sendTopic:  
+        type: string
+        description: Define el valor de la propiedad sendTopic
+        example: "sendTopic" 
+      cbTopic:  
+        type: string
+        description: Define el valor de la propiedad cbTopic
+        example: "cbTopic"
+      sdfVersion:  
+          type: number
+          format: double
+          description: numero de version
+          example: 1.0 
+      prodId:  
+          type: string
+          description: Id de quien produce el evento
+          example: "producerID" 
+      callId:  
+          type: string
+          description: Id de la llamada al evento
+          example: "Message"
+      mand:
+        $ref: "#/definitions/mand"
+      opt:
+        $ref: "#/definitions/opt"
+      free:
+        type: object
+        properties:
+          respuesta:
+            type: object
+            properties:
+              codigo:  
+               type: string
+               description: Codigo de respuesta de la operación
+               example: "400.Elektra-Punto-Venta-Cambios-Fisicos.1000" 
+              mensaje:  
+               type: string
+               description: Respuesta de la operación
+               example: "Error con los datos de entrada" 
+              folio:  
+                type: string
+                description: Identificador de rastreabilidad o identificador global único que se genera automáticamente para cada solicitud que recibe el backend
+                example: "cf3e4d0f-f0f7-460a-9ea7-359cec37e863" 
+              info:  
+                type: string
+                description: Informacion extra del servicio
+                example: "https://baz-developer.bancoazteca.com.mx/errors#400.Elektra-Punto-Venta-Cambios-Fisicos.1000" 
+              detalles: 
+                type: array
+                items:  
+                  type: string 
+                  description: Mensajes para describir la acción
+                  example: "Datos de Solicitud Inválidos" 
+                  
+  respErrorInterno:
+    type: object
+    title: sdf
+    properties:
+      nestedStates:
+        type: boolean
+        description: Indica si el evento se debe tratar como información completa
+        example: true
+      delta:
+        type: boolean
+        description: Indica si el evento se debe tratar como una actualización de información
+        example: false 
+      sdfType:
+        type: string
+        description: Tipo de operación realizada
+        example: "EVENT"
+      sendTopic:
+        type: string
+        description: Define el valor de la propiedad send_Topic
+        example: "sendTopic"
+      cbTopic:
+        type: string
+        description: Define el valor de la propiedad cb_Topic
+        example: "cbTopic"
+      sdfVersion:
+          type: number
+          format: double
+          example: 1.0
+          description: Numero de version
+      prodId:
+          type: string
+          description: Id de quien produce el evento
+          example: "producerID"
+      callId:
+          type: string
+          description: Id de la llamada al evento
+          example: "22920181120"
+      mand:
+        $ref: "#/definitions/mand"
+      opt:
+        $ref: "#/definitions/opt"
+      free:
+        type: object
+        title: respuesta
+        properties:
+          codigo:
+            type: string
+            description: Id de código de error para la aplicación cliente
+            example: "500.Elektra-Punto-Venta-Cambios-Fisicos.2000"
+          mensaje:
+            type: string
+            description: Mensaje de error para el desarrollador
+            example: "Ocurrió un error al procesar su petición"
+          folio:
+            type: string
+            description: 
+              Identificador de rastreabilidad o identificador global único que se genera automáticamente para cada solicitud que recibe el backend
+            example: "cf3e4d0f-f0f7-460a-9ea7-359cec37e863"
+          info:
+            type: string
+            description: URL hacia la documentación representativa para solucionar el error
+            example: 
+              "https://baz-developer.bancoazteca.com.mx/errors#500.Elektra-Punto-Venta-Cambios-Fisicos.2000"
+          detalles:
+            type: array
+            items:
+              type: string
+              description: Mensajes de error
+              example: 
+                "Error interno" 
+                
+  respuestaNoEncontrado:
+    type: object
+    title: sdf
+    properties:
+      nestedStates:
+        type: boolean
+        description: Indica si el evento se debe tratar como información completa
+        example: true
+      delta:
+        type: boolean
+        description: Indica si el evento se debe tratar como una actualización de información
+        example: false
+      sdfType:
+        type: string
+        description: Tipo de operación realizada
+        example: "EVENT"
+      sendTopic:
+        type: string
+        description: Define el valor de la propiedad send_Topic
+        example: "sendTopic"
+      cbTopic:
+        type: string
+        description: Define el valor de la propiedad cb_Topic
+        example: "cbTopic"
+      sdfVersion:
+          type: number
+          format: double
+          example: 1.0
+          description: Numero de version
+      prodId:
+          type: string
+          description: Id de quien produce el evento
+          example: "producerID"
+      callId:
+          type: string
+          description: Id de la llamada al evento
+          example: "22920181120"
+      mand:
+        $ref: "#/definitions/mand"
+      opt:
+        $ref: "#/definitions/opt"
+      free:
+        type: object
+        title: respuesta
+        properties:
+          codigo:
+            type: string
+            description: Id de código de error para la aplicación cliente
+            example: "404.Elektra-Punto-Cambios-Fisicos.1200"
+          mensaje:
+            type: string
+            description: Mensaje de error para el desarrollador
+            example: "No se encontró información"
+          folio:
+            type: string
+            description:
+              Identificador de rastreabilidad o identificador global único que se genera automáticamente para cada solicitud que recibe el backend
+            example: "cf3e4d0f-f0f7-460a-9ea7-359cec37e863"
+          info:
+            type: string
+            description: URL hacia la documentación representativa para solucionar el error
+            example: |-
+              "https://baz-developer.bancoazteca.com.mx/errors#404.Elektra-Punto-Cambios-Fisicos.1200"
+          detalles:
+            type: array
+            items:
+              type: string
+              description: Mensajes de error
+              example: |-
+               "Sin datos"
+               
+                
+  mand:
+    type: object
+    properties:
+      sourceId:
+        type: string
+        description: Id del conector
+        example: "EVENT"
+      eventId:
+        type: string
+        description: Id del evento
+        example: "NOTIFICATION-SNMPTrap2_SMARTS-Heartbeat2019-06-20 T 07:22:09"
+      instance:
+        type: string
+        description: Instancia donde el evento ocurrio( nodo, nombre, IP)
+        example: "spl099nms5112b_1112"
+      description:
+        type: string
+        description: Texto descriptivo del evento
+        example: "Heartbeat"
+      eventName:
+        type: string
+        description: Nombre del evento
+        example: "SMARTS-Heartbeat"
+  
+  opt:
+    type: object
+    properties:
+      summary:
+        type: string
+        description: Un breve resumen del evento
+        example: "SMARTS processed a Heartbeat event sent at Thu Jun 20 02:20:04 CDT 2019"
+      severity:
+        type: string
+        description: Severidad del evento
+        example: "4"
+      isRoot:
+        type: boolean
+        description: Indica si el evento es el evento raíz
+        example: true
+      resource:
+        type: string
+        description:  
+          El recurso en la instancia en que se generó el evento (por ejemplo, Disco).
+        example: "SNMPTrap2"
+      lastUpdatedAt:
+        type: string
+        description: Fecha de la última actualización del evento.
+        example: "2018-06-20T07:22:09Z"
+      impact:
+        type: number
+        description: El impacto de un evento.
+        example: 0
+      reportedSource:
+        type: string
+        description: Fuente de seguimiento
+        example: "UAT-TRAP02"
+      maintananceState:
+        type: boolean
+        description: Indica el estado de mantenimiento durante el tiempo del evento
+        example: true
+      certainty:
+        type: string
+        description: La certeza de un evento
+        example: "100"
+      type:
+        type: string
+        description: Tipo de evento
+        example: "MOMENTARY"
+      openedAt:
+        type: string
+        description: Fecha de apertura del evento
+        example: "2019-03-29T13:40:05Z"
+      sourceStatus:
+        type: string
+        description: Estado del evento en la herramienta fuente
+        example: "INACTIVE"
+      occurenceCount:
+        type: string
+        description: Número de incedentes del evento
+        example: "5865"
+      lastClearedAt:
+        type: string
+        description: Fecha en que se borró el evento por última vez
+        example: "2019-06-20T07:22:05Z"
+      acknowledgeState:
+        type: boolean
+        description: Indica el estado de reconocimiento durante el momento del evento
+        example: false
+      category:
+        type: string
+        description: Categoria del evento
+        example: "Message"
+      affectedCI:
+        type: string
+        description: Id del elemento de configuración afectado
+        example: "server.fqdn"
+      lastOccurredAt:
+        type: string
+        description: Fecha en que ocurrió el evento la última vez
+        example: "2018-06-20T07:20:05Z"
+      firstOccurredAt:
+        type: string
+        description:  Fecha en que ocurrió el evento por primera vez
+        example: "2018-03-29T13:40:05Z"
+      owner:
+        type: string
+        description: Propietario del evento, quien es responsable del evento
+        example: "InventarioEKT"
+ 
+  summary:
+    type: object
+    properties: 
+      api-name:  
+        type: string
+        description: API de Cambios Fìsicos
+        example: "Elektra-Punto-Venta-Cambios-Fisicos-v1" 
+        
+      catalogo-productos-get:
+        type: object
+        properties:
+          displayName:  
+            type: string
+            description: Obtiene ùnicamente los productos que pertenezcan a la clasificaciòn del producto devuelto
+            example: "Obtiene ùnicamente los productos que pertenezcan a la clasificaciòn del producto devuelto"
+            
+      clientes-get:
+        type: object
+        properties:
+          displayName:  
+            type: string
+            description: Obtiene los clientes de una tienda
+            example: "Obtiene los clientes de una tienda"
+            
+      pedido-numeroPedido-detalles:
+        type: object
+        properties:
+          displayName:  
+            type: string
+            description: Obtiene de las sucursales de Grupo Elektra el detalle del pedido por numero de pedido
+            example: "Obtiene de las sucursales de Grupo Elektra el detalle del pedido por numero de pedido"
+            
+      pedidos-get:
+        type: object
+        properties:
+          displayName:  
+            type: string
+            description: Obtiene de las sucursales de Grupo Elektra los pedidos de un cliente
+            example: "Obtiene de las sucursales de Grupo Elektra los pedidos de un cliente"
+            
+      numeroPedido-estatus-estatus-put:
+        type: object
+        properties:
+          displayName:  
+            type: string
+            description: Actualiza estatus del pedido asociado al cambio fìsico
+            example: "Actualiza estatus del pedido asociado al cambio fìsico"
+            
+            
+      producto-get:
+        type: object
+        properties:
+          displayName:  
+            type: string
+            description: Obtiene un producto siempre y cuando sea de la misma clasificación del producto devuelto
+            example: "Obtiene un producto siempre y cuando sea de la misma clasificación del producto devuelto"
+            
+      post:
+        type: object
+        properties:
+          displayName:  
+            type: string
+            description: Guarda Registro/Surtimiento de los Cambios Fìsicos
+            example: "Guarda Registro/Surtimiento de los Cambios Fìsicos"
+            
+      codigoProducto-seriales-serie-operacion-tipoOperacion-validaciones:
+        type: object
+        properties:
+          displayName:  
+            type: string
+            description: Valida si la serie del producto existe
+            example: "Valida si la serie del producto existe"
+            
+            
+      cambios-fisicos-post:
+        type: object
+        properties:
+          displayName:  
+            type: string
+            description: Consultar los cambios fisicos de Centralización de Operaciones Inventario en Tienda
+            example: "Consultar los cambios fisicos de Centralización de Operaciones Inventario en Tienda"
+            
