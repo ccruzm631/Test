@@ -1,6 +1,25 @@
-# Test
-Test in Java
+const crypto = require('crypto');
+const algorithm = 'aes-256-cbc';
+const key = crypto.randomBytes(32);
+const iv = crypto.randomBytes(16);
 
-MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDWWCLPdUkBpcuNY7ZBx3cpiRTIo9gGOJD2EWfPP0nGo+nr7HxJwiybFCKc3V/cuNPfiIRdaUKrGMQmr1p/lPyGIdLRr2JHqK/iThyBeihF5IQKWYMPWNfi98E4GagXcyvtCEazo/FsiM7i0piM/4bXkQhgHVtJ0aJSoTY8prn2FQIDAQAB
+function encrypt(text) {
+ let cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(key), iv);
+ let encrypted = cipher.update(text);
+ encrypted = Buffer.concat([encrypted, cipher.final()]);
+ return { iv: iv.toString('hex'), encryptedData: encrypted.toString('hex') };
+}
 
-MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAJ9+Ggh2HH9hcAVm1h/oM/2RVa+6RRaQu1n0vVtUKtzZlZkLs3isnEwzeTBOWrHZqXUEPHVkh+PYHPcE1syobUa1kjfvKKLfzJUqzBSL1GOQsh3F6DvOLUKZxr1JHmzRiJ6K1OTFQECK/s1nmrQOboDLUvEeayyZmWLNJRVVYOB3AgMBAAECgYEAkbdASaK/fpGjKww9bYFUnsJ9qsNgA7HPuewkZKCNWKFiUCWknwf09JnCiyPLMNpQPBzWr9pdXQlBzV2acfkffBzNwFa2Nl7lEdoVNpXnR9z2/8q+ZLv6yG1gtdcmjTq8YOr/8PxPt/MgdiRoMTRfL2qdb9H1OVgEnkrW3+WY6oECQQDXEYZbOFg1oSKLAeEwIKxRkwkYFtBNgRJQ4Q6ztCdkGoMyPHnv8DPVZ31IdxZlh0PdVy4S42rVyweRTliFW1fnAkEAvdjVIYhKKf4XC+mqW5dniHWun7MVTGBxK0nrkey05JKsImU7JtohUnuwE8pe5JrPXc9SCZxD44WclTV885/g8QJAHVWjmM+foHkBCCrSd0kNl/bRN7rs4JVpVSTNZ498C/hdyr1a+HIv77y05uxvXpvLkuYwP51LViviNVyVUGM8IwJBAKk/d7KvSD7rkSxDomaJMfnLwGQLSX+PsxR+kA7F0fa8c80uJm/aoz5fmnfqQHLZOOlO/Loon7Vk1lWHG+AttmECQGhrJNU50fOL3jkRBehJAhTthp7hmShw2xeS5mbNou6f1nHk6RKw3hyr08GWYOl9jQO3Ceo5Isvk6g5G2wH0jLk=
+function decrypt(text) {
+ let iv = Buffer.from(text.iv, 'hex');
+ let encryptedText = Buffer.from(text.encryptedData, 'hex');
+ let decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(key), iv);
+ let decrypted = decipher.update(encryptedText);
+ decrypted = Buffer.concat([decrypted, decipher.final()]);
+ return decrypted.toString();
+}
+
+var hw = encrypt(Buffer.from("Some serious stuff","utf-8"))
+//var hw = encrypt(Buffer.from("Some serious stuff","base64"))
+console.log(hw.encryptedData);
+console.log("->"+decrypt(hw));
